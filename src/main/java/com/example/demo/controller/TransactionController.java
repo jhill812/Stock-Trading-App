@@ -24,7 +24,9 @@ public class TransactionController {
     // Record a transaction
     @PostMapping("/record")
     public String recordTransaction(@RequestParam String username, @RequestBody Transaction transaction) {
-        User user = userRepository.findByUsername(username);
+    	System.out.println("Incoming JSON: " + transaction);
+    	
+    	User user = userRepository.findByUsername(username);
         if (user == null) {
             throw new IllegalArgumentException("User not found!");
         }

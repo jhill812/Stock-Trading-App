@@ -2,6 +2,7 @@ package com.example.demo.model;
 
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 @Entity
 public class Transaction {
@@ -20,6 +21,7 @@ public class Transaction {
     private double price; // Price per share
 
     @Column(nullable = false)
+    @JsonProperty("isBuy")
     private boolean isBuy; // True for buy, False for sell
 
     @Column(nullable = false)
