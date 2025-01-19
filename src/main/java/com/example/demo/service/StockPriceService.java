@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class StockPriceService {
 
-    @Value("${finnhub.api_key}")
+    @Value("${FINNHUB_API_KEY}")
     private String apiKey;
 
     private final String BASE_URL = "https://finnhub.io/api/v1/quote";
@@ -17,6 +17,7 @@ public class StockPriceService {
 
     public StockPriceService() {
         this.restTemplate = new RestTemplate();
+        System.out.println("Resolved API Key: " + apiKey);
     }
 
     public double getStockPrice(String symbol) {

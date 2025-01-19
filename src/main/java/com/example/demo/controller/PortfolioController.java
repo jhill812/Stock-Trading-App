@@ -6,6 +6,7 @@ import com.example.demo.model.Transaction;
 import com.example.demo.model.User;
 import com.example.demo.repository.PortfolioRepository;
 import com.example.demo.repository.UserRepository;
+import com.example.demo.service.StockPriceService;
 import com.example.demo.repository.TransactionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -25,6 +26,9 @@ public class PortfolioController {
     
     @Autowired
     private TransactionRepository transactionRepository;
+    
+    @Autowired
+    private StockPriceService stockPriceService;
 
     // Add Stock to Portfolio
     @PostMapping("/add")
@@ -38,15 +42,20 @@ public class PortfolioController {
         return "Stock added to portfolio!";
     }
 
-    // View Portfolio
+    // View Portfolio with Live Prices
     @GetMapping("/{username}")
     public List<PortfolioDTO> viewPortfolio(@PathVariable String username) {
-    	User user = userRepository.findByUsername(username);
+        User user = userRepository.findByUsername(username);
         if (user == null) {
             throw new IllegalArgumentException("User not found!");
         }
+
         return portfolioRepository.findByUser(user).stream()
-                .map(portfolio -> new PortfolioDTO(portfolio.getStockSymbol(), portfolio.getQuantity()))
+                .map(portfolio -> {
+                    double currentPrice = stockPriceService.getStockPrice(portfolio.getStockSymbol());
+                    double totalValue = currentPrice * portfolio.getQuantity();
+                    return new PortfolioDTO(portfolio.getStockSymbol(), portfolio.getQuantity(), currentPrice, totalValue);
+                })
                 .toList();
     }
 
