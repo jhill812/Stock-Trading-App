@@ -16,6 +16,7 @@ public class SecurityConfig {
                 .requestMatchers("/api/users/signup", "/api/users/login").permitAll() // Allow public access to signup/login
                 .requestMatchers("/api/portfolio/**").permitAll() // Allow public access to portfolio endpoints
                 .requestMatchers("/api/transactions/**").permitAll() // Allow public access to transactions
+                .requestMatchers("/api/stocks/**").permitAll() //Allow public access to stock api calls
                 .anyRequest().authenticated() // Secure all other endpoints
             )
             .httpBasic(httpBasic -> httpBasic.disable()) // Use basic authentication (or customize as needed)
