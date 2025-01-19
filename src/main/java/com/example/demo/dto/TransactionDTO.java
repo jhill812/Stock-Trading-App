@@ -3,22 +3,22 @@ package com.example.demo.dto;
 import java.time.LocalDateTime;
 
 public class TransactionDTO {
-    private Long id;
-    private String stockSymbol;
-    private int quantity;
-    private double price;
-    private boolean isBuy;
-    private LocalDateTime transactionDate;
-    private String username; // Include only the username, not the password
+	 	private Long id;
+	    private String stockSymbol;
+	    private int quantity;
+	    private double price;
+	    private String isBuy; 
+	    private LocalDateTime transactionDate;
+	    private String username;// Include only the username, not the password
 
     public TransactionDTO(Long id, String stockSymbol, int quantity, double price, boolean isBuy, LocalDateTime transactionDate, String username) {
         this.id = id;
         this.stockSymbol = stockSymbol;
         this.quantity = quantity;
         this.price = price;
-        this.isBuy = isBuy;
         this.transactionDate = transactionDate;
         this.username = username;
+        this.isBuy = isBuy ? "buy" : "sell";
     }
     
     // Getters and Setters
@@ -54,11 +54,11 @@ public class TransactionDTO {
 		this.price = price;
 	}
 
-	public boolean isBuy() {
+	public String getIsBuy() {
 		return isBuy;
 	}
 
-	public void setBuy(boolean isBuy) {
+	public void setIsBuy(String isBuy) {
 		this.isBuy = isBuy;
 	}
 

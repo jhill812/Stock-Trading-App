@@ -31,9 +31,7 @@ public class TransactionController {
             throw new IllegalArgumentException("User not found!");
         }
         
-      //**FOR TESTING//
-        System.out.println("Transaction isBuy: " + transaction.isBuy());
-
+     
         transaction.setUser(user);
         transaction.setTransactionDate(LocalDateTime.now());
         transactionRepository.save(transaction);
